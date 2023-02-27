@@ -15,6 +15,7 @@ use routes::refresh::refresh;
 use routes::register::register;
 use routes::reset_password::{reset, set};
 use std::env;
+use dotenvy::dotenv;
 
 fn get_listen_address() -> String {
     let host = env::var("HOST").unwrap_or("0.0.0.0".to_string());
@@ -44,6 +45,8 @@ fn get_refresh_expires() -> u64 {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
     let jwt_secret = env::var("JWT_SECRET").expect("Env variable JWT_SECRET is not set");
     let db_url = env::var("DATABASE_URL").expect("Env variable DATABASE_URL is not set");
 
