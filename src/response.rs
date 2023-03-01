@@ -37,6 +37,6 @@ pub fn build_response(session: UserSession) -> HttpResponse {
     //     .finish()
 
     HttpResponse::Ok()
-        .insert_header(("Authorization", session.jwt_token))
+        .insert_header(("Authorization", format!("Bear {}", session.jwt_token)))
         .finish()
 }
