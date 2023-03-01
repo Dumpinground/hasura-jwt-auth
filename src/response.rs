@@ -29,10 +29,14 @@ pub fn build_response(session: UserSession) -> HttpResponse {
         refresh_expiry_value, session.refresh_max_age_seconds
     );
 
+    // HttpResponse::Ok()
+    //     .insert_header(("set-cookie", jwt_cookie))
+    //     .append_header(("set-cookie", refresh_cookie))
+    //     .append_header(("set-cookie", jwt_expiry_cookie))
+    //     .append_header(("set-cookie", refresh_expiry_cookie))
+    //     .finish()
+
     HttpResponse::Ok()
-        .insert_header(("set-cookie", jwt_cookie))
-        .append_header(("set-cookie", refresh_cookie))
-        .append_header(("set-cookie", jwt_expiry_cookie))
-        .append_header(("set-cookie", refresh_expiry_cookie))
+        .insert_header(("Authorization", session.jwt_token))
         .finish()
 }
